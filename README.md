@@ -4,5 +4,5 @@ This python script allows you to connect with a serial port and start ploting th
 If no port is available at the time, there is also a function to generate data. 
 
 Changes yet to be made:
-* Group everything in a function
 * Allow personalization of what wants to be ploted
+* For now it only accepts files that come with 2 columns in csv mode
