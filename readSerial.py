@@ -3,7 +3,7 @@ from threading import Thread
 import matplotlib.animation as animation
 import random
 
-#python -m serial.tools.list_ports
+#python -m serial.tools.list_ports -> lists all available ports
 def readSerial(COM, baud):
     try:
         ser = serial.Serial(
@@ -15,6 +15,7 @@ def readSerial(COM, baud):
     except:
         print("Impossible to connect with port", COM)
 #
+
 def checkFolder():
     if not os.path.exists(os.path.dirname(__file__) + "\\dados"):
         os.makedirs(os.path.dirname(__file__) + "\\dados")
@@ -24,6 +25,7 @@ def checkFolder():
 
     return path
 #
+
 def checkFile(path):
     id = 1
     while True:
@@ -35,12 +37,14 @@ def checkFile(path):
             id += 1
     return fid
 #
+
 def readData(ser, fid):
     while True:
         line = ser.readline().decode("utf-8")
         with open(fid, "a", newline="") as outFile:
             outFile.write(line)
 #
+
 def generateData(fid):
     x = 0
     while True:
@@ -52,6 +56,7 @@ def generateData(fid):
         x += 1
         time.sleep(0.001)
 #
+
 def livePlot(fid):
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
@@ -79,16 +84,23 @@ def livePlot(fid):
     aniPlot = animation.FuncAnimation(fig, animate, interval=1)
     plt.show()
 #
-if __name__ == "__main__":
-    # ser = readSerial("COM6", 115200)
 
+def main(fid, genData = False, COM = "COM4", baud = 9600):
+    if not genData:
+        ser = readSerial(COM,baud)
+        process = Thread(target=readData, args=(ser,fid))
+    else:
+        process = Thread(target=generateData, args=(fid,))
+    return process
+#
+
+if __name__ == "__main__":
     path = checkFolder()
     fid = checkFile(path)
-    # readData(ser, fid)
 
-    generationData = Thread(target=generateData, args=(fid,))
-    generationData.start()
+    process = main(fid, genData=True)
+    process.start()
 
     livePlot(fid)
-
-    generationData.join()
+    
+    process.join()
