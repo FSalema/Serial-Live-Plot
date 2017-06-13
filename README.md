@@ -1,25 +1,7 @@
-# Leaning md
+# Serial Live Plot
 
-## _**Basic Comands**_
+This python script allows you to connect with a serial port and start ploting the data received live 
 
-You should visit [**Google**](https://www.google.pt/)
-Or we can create a [reference link][referenced link]
-
-[referenced link]: www.github.com
-
-![A representation of Octdrey Catburn](http://www.iconsdb.com/icons/preview/black/car-xxl.png)
-
->"This way i can make quotes"
-
-* It
-    * is
-* easy
-    1. to create
-    2. lists
-
-Here sentences  
-are paragraphed with double space  
-While here we 
-
-use bouble backspace!
-I updated it
+Changes yet to be made:
+* Group everything in a function
+* Allow personalization of what wants to be ploted
